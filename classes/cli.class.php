@@ -2,7 +2,6 @@
 
 /*!
  * \author	charles.foichat@gmail.com
- * \author	Copyright : Internet Hallway (http://www.internethallway.com/)
  */
 class CLIUtils {
 
