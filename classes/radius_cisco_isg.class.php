@@ -24,10 +24,8 @@ class radiusCiscoISG extends radiusClient {
       $req->attributes()->add(radiusAttribute::allocateFromName('Cisco-Command-Code', '4 &'));
     */
     $req->attributes()->add(radiusAttribute::allocateFromId(2, $encoded_password));
-    $req->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(self::VENDOR_ID, 
-							  250, $cisco_account_identifier));
-    $req->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(self::VENDOR_ID, 
-							    252, '4 &'));
+    $req->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(250, $cisco_account_identifier, array("vendor_id" => self::VENDOR_ID)));
+    $req->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(252, '4 &', array("vendor_id" => self::VENDOR_ID)));
     $ret = $this->processRequest($req);
     return $ret;
   }
@@ -41,9 +39,9 @@ class radiusCiscoISG extends radiusClient {
 
   function logon($username, $password, $ip) {
     $request = new radiusRequest(43);
-    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(9, 252, '1'));
-    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(9, 1, 'subscriber:command=account-logon'));
-    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(9, 250, $ip));
+    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(252, '1', array("vendor_id" => self::VENDOR_ID)));
+    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(1, 'subscriber:command=account-logon', array("vendor_id" => self::VENDOR_ID)));
+    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(250, $ip, array("vendor_id" => self::VENDOR_ID)));
     $request->attributes()->add(radiusAttribute::allocateFromId(1, $username));
     $response = $this->processRequest($request);
     return $response;
@@ -51,9 +49,9 @@ class radiusCiscoISG extends radiusClient {
 
   function logout($ip) {
     $request = new radiusRequest(43);
-    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(9, 252, '2'));
-    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(9, 1, 'subscriber:command=account-logoff'));
-    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(9, 250, $ip));
+    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(252, '2', array("vendor_id" => self::VENDOR_ID)));
+    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(1, 'subscriber:command=account-logoff', array("vendor_id" => self::VENDOR_ID)));
+    $request->attributes()->add(radiusVendorSpecificAttribute::allocateFromId(250, $ip, array("vendor_id" => self::VENDOR_ID)));
     $response = $this->processRequest($request);
     return $response;
   }

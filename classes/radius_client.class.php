@@ -53,7 +53,7 @@ class radiusAttribute {
     $this->_value = $value;
   }
 
-  public static function allocateFromId($id, $value) {
+  public static function allocateFromId($id, $value, $extended_informations = NULL) {
     if (($att_info = radiusDictionnaryLookup::getAttributeInformation($id)) === FALSE)
       $att_info = radiusDictionnaryLookup::getDefaultAttributeInformation();
     $att = new radiusAttribute();
@@ -92,7 +92,8 @@ class radiusVendorSpecificAttribute extends radiusAttribute {
     $this->_vendor_id = $id;
   }
 
-  public static function allocateFromId($vendor_id, $id, $value) {
+  public static function allocateFromId($id, $value, $extended_informations = NULL) {
+    $vendor_id = (is_array($extended_informations) && isset($extended_informations["vendor_id"])) ? $extended_informations["vendor_id"] : NULL;
     if (($att_info = radiusDictionnaryLookup::getVendorSpecificAttributeInformation($vendor_id, $id)) === FALSE)
       $att_info = radiusDictionnaryLookup::getDefaultAttributeInformation();
     $att = new radiusVendorSpecificAttribute();

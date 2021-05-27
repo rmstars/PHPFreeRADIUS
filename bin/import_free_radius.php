@@ -8,9 +8,9 @@
  * Notice are thrown when multiple attributes are present with same id or with the same name
  * In order to avoid debug printing use  -d error_reporting='E_ALL & E_NOTICE'
  *
- * Example : php -d error_reporting='E_ALL & E_NOTICE' bin/import_free_radius.php /usr/share/freeradius/dictionary classes/radius/dict
+ * Example : php -d error_reporting='E_ALL & E_NOTICE' bin/import_free_radius.php /usr/share/freeradius/dictionary dict
  */
-define('USAGE', $argv[0]." : dictionnary_file destination_directory\n");
+define('USAGE', $argv[0]." : dictionnary_file destination_directory\nEg : php -d error_reporting='E_ALL & E_NOTICE' bin/import_free_radius.php /usr/share/freeradius/dictionary dict\n");
 
 if ($argc < 3) {
   echo USAGE;
